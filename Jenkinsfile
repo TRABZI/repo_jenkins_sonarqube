@@ -12,10 +12,17 @@ node {
         	sh label: '', script: 'java Main'
     }
 
-    stage('sonar-scanner') {
+    stage('sonarqube-scanner') {
       def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-      withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -Dsonar.host.url=http://141.95.160.233:9000/ -Dsonar.login=${sonarLogin} -Dsonar.projectName=sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jnsq  -Dsonar.sources=./ -Dsonar.language=java -Dsonar.java.binaries=."
+      withCredentials([string(credentialsId: 'sonarqubeToken', variable: 'sonarLogin')]) {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -Dsonar.host.url=http://141.95.160.233:9000/ -Dsonar.login=${sonarLogin} -Dsonar.projectName=sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jnknsSnrqb  -Dsonar.sources=./ -Dsonar.language=java -Dsonar.java.binaries=."
       }
     }
+
+   stage{'Print global Vars}{
+	echo "SonarQubeScanner Home : " ${sonarqubeScannerHome}
+	echo "env.BUILD_NUMBER : " ${env.BUILD_NUMBER}
+	echo "sonarLogin : " ${sonarLogin} 
+   
+   }
 }
