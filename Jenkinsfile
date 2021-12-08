@@ -1,4 +1,4 @@
-pipline {
+node {
     agent any
     stages{
     
