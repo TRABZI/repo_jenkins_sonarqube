@@ -1,5 +1,9 @@
 #!groovy
 node {
+
+    stage('Clone') {
+        git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
+    }
    
     stage('SonarQube analysis') {
         def scannerHome= tool 'sonar-scanner'
