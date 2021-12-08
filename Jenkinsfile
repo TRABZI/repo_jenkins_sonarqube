@@ -8,22 +8,22 @@ environment {
     )
 }
 stages {
-  stage('SonarQube analysis') {
+   stage('SonarQube analysis') {
     environment {
       SCANNER_HOME = tool 'sonar-scanner'
     }
     steps {
-    withSonarQubeEnv(credentialsId: 'sonarqubeToken', installationName: 'sonar') {
-         sh '''$SCANNER_HOME/bin/sonar-scanner \
+    	withSonarQubeEnv(credentialsId: 'sonarqubeToken', installationName: 'sonar') {
+          sh '''$SCANNER_HOME/bin/sonar-scanner \
           -D sonar.login=admin \
           -D sonar.password=admin1 \
           -D sonar.projectBaseDir=/var/lib/jenkins/workspace/HomeWork1_TP_Jenkins \
          -Dsonar.projectKey=projectKey \
          -Dsonar.projectName=projectName \
-         -Dsonar.sources=/ \
+         -Dsonar.sources=/  '''
        }
      }
-  }
+
   stage('SQuality Gate') {
      steps {
        timeout(time: 1, unit: 'MINUTES') {
@@ -31,5 +31,6 @@ stages {
        }
     }
  }
+}
 }
 }
