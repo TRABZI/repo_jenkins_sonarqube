@@ -7,7 +7,7 @@ node {
     	stage('scan'){
     		steps{
         		withSonarQubeEnv(installationName: 'sq1'){
-                		sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plug:3.9.0.2155:sonar'
+                		sh './mvnw clean sonar:sonar'
                 	}
         	}
     	}
