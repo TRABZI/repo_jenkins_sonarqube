@@ -4,7 +4,7 @@ node {
     }
     stage('SonarQube analysis') {
         withSonarQubeEnv('sonarqube') {
-                sh "./gradlew sonarqube"
+                sh "${scannerHome}/bin/sonar-scanner"
         }
     }
     stage("Quality gate") {
