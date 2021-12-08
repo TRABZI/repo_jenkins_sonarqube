@@ -7,28 +7,17 @@ environment {
      returnStdout: true
     )
 }
-tools {
-   maven 'maven'
-   jdk 'java'
-}
-stages {
-  stage('Build project') {
-    steps {
-      sh '''mvn install'''
-    }
-  }
   stage('SonarQube analysis') {
     environment {
-      SCANNER_HOME = tool 'Sonar-scanner'
+      SCANNER_HOME = tool 'sonar-scanner'
     }
     steps {
-    withSonarQubeEnv(credentialsId: 'sonar-credentialsId', installationName: 'Sonar') {
+    withSonarQubeEnv(credentialsId: 'sonarqubeToken', installationName: 'sonar') {
          sh '''$SCANNER_HOME/bin/sonar-scanner \
          -Dsonar.projectKey=projectKey \
          -Dsonar.projectName=projectName \
          -Dsonar.sources=src/ \
          -Dsonar.java.binaries=target/classes/ \
-         -Dsonar.exclusions=src/test/java/****/*.java \
          -Dsonar.java.libraries=/var/lib/jenkins/.m2/**/*.jar \
          -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
        }
