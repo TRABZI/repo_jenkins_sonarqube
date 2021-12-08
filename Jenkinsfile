@@ -19,4 +19,9 @@ node {
       }
     }
 
+   stage('Gate Way'){
+
+	waitForQualityGate abortPipeline: true
+   }
+
 }
