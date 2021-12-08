@@ -4,7 +4,7 @@ node {
     }
 
     
-    stage ('Scan and Build Jar File') {
+    stage ('Sonaquebe analysis') {
     	steps {
         	withSonarQubeEnv(installationName: 'sonarqube_server', credentialsId: 'sqt') {
                 	sh 'mvn clean package sonar:sonar'
