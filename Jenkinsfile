@@ -19,7 +19,7 @@ node {
       }
     }
 
-   stage{'Print global Vars}{
+   stage('Print global Variabls'){
 	echo "SonarQubeScanner Home : " ${sonarqubeScannerHome}
 	echo "env.BUILD_NUMBER : " ${env.BUILD_NUMBER}
 	echo "sonarLogin : " ${sonarLogin} 
