@@ -2,13 +2,20 @@ node {
     stage('Clone') {
         git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
     }
-    stage('SonarQube analysis') {
-        withSonarQubeEnv('sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-        }
-    }
-    stage("Quality gate") {
-        waitForQualityGate abortPipeline: true
+
+
+    stage('Sonarqube') {
+    	environment {
+        	scannerHome = tool 'SonarQubeScanner'
+    	}
+    	steps {
+        	withSonarQubeEnv('sonarqube') {
+            		sh "${scannerHome}/bin/sonar-scanner"
+        	}
+        	timeout(time: 10, unit: 'MINUTES') {
+            		waitForQualityGate abortPipeline: true
+        	}
+    	}	
     }
     stage('Build') {
         sh label: '', script: 'javac Main.java'
