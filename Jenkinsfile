@@ -19,10 +19,4 @@ node {
       }
     }
 
-   stage('Print global Variabls'){
-	echo $sonarqubeScannerHome
-	echo ${env.BUILD_NUMBER}
-	echo $sonarLogin
-   
-   }
 }
