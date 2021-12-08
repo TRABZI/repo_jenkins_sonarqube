@@ -2,6 +2,18 @@ node {
     stage('Clone') {
         git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
     }
+    stage('SonarQube analysis') {
+    	steps {
+        	withSonarQubeEnv('SonarQube') {
+                	sh "./gradlew sonarqube"
+                }
+        }
+    }
+    stage("Quality gate") {
+    	steps {
+        	waitForQualityGate abortPipeline: true
+        }
+    }
     stage('Build') {
         sh label: '', script: 'javac Main.java'
     }
