@@ -7,6 +7,7 @@ environment {
      returnStdout: true
     )
 }
+stages {
   stage('SonarQube analysis') {
     environment {
       SCANNER_HOME = tool 'sonar-scanner'
@@ -22,13 +23,14 @@ environment {
          -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
        }
      }
-}
-   stage('SQuality Gate') {
+  }
+  stage('SQuality Gate') {
      steps {
        timeout(time: 1, unit: 'MINUTES') {
-       waitForQualityGate abortPipeline: true
+       	waitForQualityGate abortPipeline: true
        }
-  }
+    }
+ }
 }
 }
 
