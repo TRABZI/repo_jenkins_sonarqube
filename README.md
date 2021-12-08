@@ -1,3 +1,3 @@
 # tp_11_webhook
-TP Jenkins Sonarqube integration 
+TP About Jenkins and Sonarqube integration 
 
