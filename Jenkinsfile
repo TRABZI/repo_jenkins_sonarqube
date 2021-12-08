@@ -20,6 +20,7 @@ node {
     }
 
    stage('Gate Way'){
+	withSonarQubeEnv('sonar')
 	waitForQualityGate abortPipeline: true
    }
 
