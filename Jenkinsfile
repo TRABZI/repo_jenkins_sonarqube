@@ -3,24 +3,20 @@ node {
         git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
     }
 
-
-    stage('Sonarqube') {
-    	environment {
-        	scannerHome = tool 'sonarqube'
-    	}
+    
+    stage ('Scan and Build Jar File') {
     	steps {
-        	withSonarQubeEnv('sonarqube') {
-            		sh "${scannerHome}/bin/sonar-scanner"
-        	}
-        	timeout(time: 10, unit: 'MINUTES') {
-            		waitForQualityGate abortPipeline: true
-        	}
-    	}	
-    }
+        	withSonarQubeEnv(installationName: 'sonarqube_server', credentialsId: 'sqt') {
+                	sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
+
     stage('Build') {
         sh label: '', script: 'javac Main.java'
-    }
+        }
+
     stage('Run') {
         sh label: '', script: 'java Main'
-    }
+        }
 }
