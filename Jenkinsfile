@@ -3,9 +3,11 @@ node {
         git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
     }
     stage('SonarQube analysis') {
-        withSonarQubeEnv('SonarQube') {
-                sh "./gradlew sonarqube"
-        }
+	steps{
+        	withSonarQubeEnv('SonarQube') {
+                	sh "./gradlew sonarqube"
+        	}
+    	}
     }
     stage("Quality gate") {
         waitForQualityGate abortPipeline: true
