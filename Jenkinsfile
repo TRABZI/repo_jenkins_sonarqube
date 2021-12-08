@@ -9,11 +9,12 @@ environment {
 }
 stages {
    stage('SonarQube analysis') {
-    environment {
-      SCANNER_HOME = tool 'sonar-scanner'
-    }
-    steps {
-    	withSonarQubeEnv(credentialsId: 'sonarqubeToken', installationName: 'sonar') {
+    steps{
+     environment {
+       SCANNER_HOME = tool 'sonar-scanner'
+     }
+
+     withSonarQubeEnv(credentialsId: 'sonarqubeToken', installationName: 'sonar') {
           sh '''$SCANNER_HOME/bin/sonar-scanner \
           -D sonar.login=admin \
           -D sonar.password=admin1 \
@@ -23,6 +24,7 @@ stages {
          -Dsonar.sources=/  '''
        }
      }
+   }
 
   stage('SQuality Gate') {
      steps {
@@ -33,4 +35,4 @@ stages {
  }
 }
 }
-}
+
