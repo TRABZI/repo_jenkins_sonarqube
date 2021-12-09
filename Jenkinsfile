@@ -1,7 +1,7 @@
 node {
 
     stage('Clone') {
-        	git 'https://github.com/TRABZI/homeWork_TP_Jenkins_webhook_sonar.git'
+        	git 'https://github.com/TRABZI/repo_jenkins_sonarqube.git'
     }
 
     stage('Build') {
