@@ -29,10 +29,6 @@ node {
 
 
    stage('Gate Quality'){
-   waitForQualityGate abortPipline : true
-   def qualitygate = waitForQualityGate()
-   if (qualitygate.status != "OK") {
-	error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+   	waitForQualityGate abortPipline : true
    }
-  } 
 }
