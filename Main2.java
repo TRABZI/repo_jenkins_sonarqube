@@ -10,6 +10,7 @@ public class MathService {
         Integer myInt = null;
         Integer yourInt = myInt * 2;
 	Integer result=null;
+	Integer result=firstNumber - secondNumber;
         return firstNumber - secondNumber;
     }
 }
